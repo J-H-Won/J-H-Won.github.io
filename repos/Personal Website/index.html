@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joshua — Mechatronics & Automation Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#12161a;
+    --bg-1:#181e24;
+    --bg-2:#1f262d;
+    --line:#2a323a;
+    --copper:#c1793f;
+    --copper-dim:#8a5a30;
+    --steel:#7c93a3;
+    --text-0:#edeae2;
+    --text-1:#aeb4b9;
+    --text-2:#767e85;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg-0);
+    color:var(--text-0);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  /* blueprint dot grid backdrop */
+  .grid-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background-image:
+      radial-gradient(circle, rgba(124,147,163,0.10) 1px, transparent 1px);
+    background-size: 34px 34px;
+    pointer-events:none;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    background:rgba(18,22,26,0.82);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.04em;
+    color:var(--text-0);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .nav-mark .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--copper);
+    box-shadow:0 0 8px var(--copper);
+  }
+  .nav-links{
+    display:flex;
+    gap:36px;
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+  .nav-links a{
+    color:var(--text-1);
+    transition:color .2s ease;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--copper);}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    padding-top:80px;
+  }
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    width:100%;
+  }
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;}
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--copper);
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:26px; height:1px;
+    background:var(--copper);
+  }
+  .hero h1{
+    font-size:clamp(40px, 6vw, 68px);
+    line-height:1.05;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    color:var(--text-0);
+    margin-bottom:22px;
+  }
+  .hero h1 span{color:var(--steel);}
+  .hero p.lede{
+    font-size:18px;
+    color:var(--text-1);
+    max-width:480px;
+    margin-bottom:34px;
+  }
+  .btn-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:13px 24px;
+    border-radius:2px;
+    transition:all .2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--copper);
+    color:#14181c;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#d4884a;}
+  .btn-outline{
+    border:1px solid var(--line);
+    color:var(--text-1);
+  }
+  .btn-outline:hover{border-color:var(--steel); color:var(--text-0);}
+
+  .linkage-box{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .linkage-caption{
+    position:absolute;
+    bottom:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-2);
+    letter-spacing:0.05em;
+    white-space:nowrap;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:36px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-2);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+  }
+  .scroll-cue .bar{
+    width:1px; height:34px;
+    background:linear-gradient(var(--copper), transparent);
+    animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%{transform:scaleY(0.3); opacity:0.4; transform-origin:top;}
+    50%{transform:scaleY(1); opacity:1; transform-origin:top;}
+    100%{transform:scaleY(0.3); opacity:0.4; transform-origin:top;}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    position:relative;
+    padding:120px 0;
+  }
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:56px;
+  }
+  .divider .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--copper);
+    white-space:nowrap;
+  }
+  .divider .rule{
+    height:1px;
+    width:100%;
+    background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);
+  }
+  h2.section-title{
+    font-size:clamp(28px,4vw,40px);
+    font-weight:700;
+    color:var(--text-0);
+    margin-bottom:16px;
+    letter-spacing:-0.01em;
+  }
+  p.section-sub{
+    color:var(--text-1);
+    max-width:600px;
+    margin-bottom:56px;
+    font-size:16px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  @media (max-width:800px){ .about-grid{grid-template-columns:1fr;} }
+  .photo-slot{
+    aspect-ratio:4/5;
+    border:1px dashed var(--line);
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-2);
+    background:var(--bg-1);
+  }
+  .about-body p{color:var(--text-1); margin-bottom:18px; font-size:16px;}
+  .about-body strong{color:var(--text-0); font-weight:600;}
+  .stat-row{
+    display:flex;
+    gap:40px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .stat{
+    font-family:var(--mono);
+  }
+  .stat .num{
+    font-size:30px;
+    font-weight:700;
+    color:var(--copper);
+    display:block;
+  }
+  .stat .label{
+    font-size:12px;
+    color:var(--text-2);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{
+    position:relative;
+    border-left:1px solid var(--line);
+    padding-left:44px;
+  }
+  .t-item{
+    position:relative;
+    padding-bottom:56px;
+  }
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:'';
+    position:absolute;
+    left:-49px;
+    top:4px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--bg-0);
+    border:2px solid var(--copper);
+  }
+  .t-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--steel);
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .t-role{
+    font-size:20px;
+    font-weight:600;
+    color:var(--text-0);
+    margin-bottom:4px;
+  }
+  .t-org{
+    font-size:14px;
+    color:var(--copper);
+    font-family:var(--mono);
+    margin-bottom:14px;
+  }
+  .t-desc{color:var(--text-1); max-width:640px;}
+  .t-desc ul{margin-top:10px; padding-left:18px;}
+  .t-desc li{margin-bottom:6px;}
+
+  /* ---------- BUILD SPOTLIGHT ---------- */
+  .build-panel{
+    background:var(--bg-1);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:48px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+  }
+  @media (max-width:800px){ .build-panel{grid-template-columns:1fr; padding:28px;} }
+  .media-slot{
+    aspect-ratio:16/10;
+    border:1px dashed var(--line);
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-2);
+    background:var(--bg-0);
+  }
+  .build-copy h3{
+    font-size:24px;
+    color:var(--text-0);
+    margin-bottom:14px;
+  }
+  .build-copy p{color:var(--text-1); margin-bottom:20px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono);
+    font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    color:var(--text-1);
+    background:var(--bg-2);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:800px){ .skills-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-card{
+    background:var(--bg-1);
+    padding:32px 28px;
+  }
+  .skill-card h4{
+    font-family:var(--mono);
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--copper);
+    margin-bottom:10px;
+  }
+  .skill-card p{
+    font-size:14px;
+    color:var(--text-1);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    text-align:center;
+    padding:80px 40px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:radial-gradient(circle at 50% 0%, var(--bg-2), var(--bg-1));
+  }
+  .contact-panel h2{
+    font-size:clamp(30px,5vw,48px);
+    margin-bottom:18px;
+  }
+  .contact-panel p{color:var(--text-1); max-width:480px; margin:0 auto 36px;}
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    flex-wrap:wrap;
+    font-family:var(--mono);
+    font-size:14px;
+  }
+  .contact-links a{
+    color:var(--text-1);
+    border-bottom:1px solid var(--line);
+    padding-bottom:3px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .contact-links a:hover{color:var(--copper); border-color:var(--copper);}
+
+  footer{
+    padding:36px 0 60px;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-2);
+  }
+
+  .edit-note{
+    color:var(--copper-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span>JOSHUA</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#build">Current Build</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">Mechatronics &amp; Automation Engineer</div>
+      <h1>Building the <span>linkages</span><br>between code and machine.</h1>
+      <p class="lede">
+        I design, test, and control robotic and automated systems — from PLC-driven
+        building automation to ROS2 mobile platforms — grounded in hands-on hardware
+        validation.
+      </p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#" class="btn btn-outline">Download résumé <span class="edit-note">(add link)</span></a>
+      </div>
+    </div>
+    <div class="linkage-box">
+      <svg id="linkage-svg" viewBox="0 0 320 320" width="100%" height="auto" style="max-width:380px;">
+        <!-- ground link -->
+        <line id="l-ground" x1="0" y1="0" x2="0" y2="0" stroke="#2a323a" stroke-width="2" stroke-dasharray="4 5"/>
+        <!-- crank -->
+        <line id="l-crank" x1="0" y1="0" x2="0" y2="0" stroke="#7c93a3" stroke-width="3"/>
+        <!-- coupler -->
+        <line id="l-coupler" x1="0" y1="0" x2="0" y2="0" stroke="#c1793f" stroke-width="3"/>
+        <!-- rocker -->
+        <line id="l-rocker" x1="0" y1="0" x2="0" y2="0" stroke="#7c93a3" stroke-width="3"/>
+        <!-- pivots -->
+        <circle id="p-o2" r="5" fill="#12161a" stroke="#edeae2" stroke-width="2"/>
+        <circle id="p-o4" r="5" fill="#12161a" stroke="#edeae2" stroke-width="2"/>
+        <circle id="p-b" r="4.5" fill="#c1793f"/>
+        <circle id="p-c" r="4.5" fill="#7c93a3"/>
+        <!-- coupler point tracer -->
+        <path id="tracer" fill="none" stroke="#c1793f" stroke-width="1" opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="bar"></span>Scroll</div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="divider"><span class="tag">01 — About</span><span class="rule"></span></div>
+    <div class="about-grid reveal">
+      <div class="photo-slot">Add headshot here<br><span class="edit-note">(replace .photo-slot background)</span></div>
+      <div class="about-body">
+        <p>
+          I'm an early-career mechatronics and mechanical engineer with a
+          <strong>Master's degree from Northeastern University</strong>. My path into
+          robotics has run through test engineering on humanoid hardware, full-stack
+          robotics software, and industrial automation — I like working close to the
+          hardware, where a control decision shows up as a measurable change in a
+          system's behavior.
+        </p>
+        <p>
+          Across every role, I've focused on the same thing: closing the loop between
+          data and design. Whether that's friction data from a test rig, a calibration
+          routine running over RTSP, or a PLC state machine on a commissioning floor,
+          I want the evidence to drive the next design decision.
+        </p>
+        <div class="stat-row">
+          <div class="stat"><span class="num">3</span><span class="label">Engineering roles</span></div>
+          <div class="stat"><span class="num">5x</span><span class="label">Calibration speedup</span></div>
+          <div class="stat"><span class="num">33%</span><span class="label">Friction torque cut</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="divider"><span class="tag">02 — Experience</span><span class="rule"></span></div>
+    <h2 class="section-title reveal">Where the work happened</h2>
+    <p class="section-sub reveal">A quick history of the systems I've tested, built, and commissioned.</p>
+
+    <div class="timeline">
+      <div class="t-item reveal">
+        <div class="t-date">Co-op</div>
+        <div class="t-role">Systems Test Engineer</div>
+        <div class="t-org">Boston Dynamics — Humanoid Robotics</div>
+        <div class="t-desc">
+          <ul>
+            <li>Ran structured test protocols on humanoid hardware subsystems and analyzed the resulting data.</li>
+            <li>Test data analysis contributed to a 33% reduction in friction torque on a key mechanism.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-date">Co-op</div>
+        <div class="t-role">Software Engineer</div>
+        <div class="t-org">Sea Machines Robotics — Autonomous Vessels</div>
+        <div class="t-desc">
+          <ul>
+            <li>Worked full-stack on ROS2-based tooling, including Python, RTSP video streams, and HTML interfaces.</li>
+            <li>Rebuilt a camera calibration workflow, cutting calibration time by roughly 5x.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-date">Full-time</div>
+        <div class="t-role">Building Automation Engineer</div>
+        <div class="t-org">Siemens</div>
+        <div class="t-desc">
+          <ul>
+            <li>Commissioned building automation systems using PLCs programmed in structured text.</li>
+            <li>Worked within Siemens' proprietary automation platform to bring control sequences online on-site.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CURRENT BUILD ================= -->
+  <section id="build">
+    <div class="divider"><span class="tag">03 — Current Build</span><span class="rule"></span></div>
+    <h2 class="section-title reveal">Board dolly → differential-drive robot</h2>
+    <p class="section-sub reveal">A personal hardware project turning a repurposed board dolly into a ROS2-navigated mobile platform.</p>
+
+    <div class="build-panel reveal">
+      <div class="media-slot">Add project GIF/photo here<br><span class="edit-note">(replace .media-slot)</span></div>
+      <div class="build-copy">
+        <h3>Motorized Differential Drive Platform</h3>
+        <p>
+          Converting a board dolly chassis into a differential-drive robot with
+          BLDC motors and a ROS2 navigation stack, using off-the-shelf drivetrain
+          hardware and custom laser-cut adapter plates to mate everything together.
+        </p>
+        <div class="chip-row">
+          <span class="chip">ROS2 Navigation</span>
+          <span class="chip">BLDC Motors</span>
+          <span class="chip">REV HD Hex</span>
+          <span class="chip">UltraPlanetary Gearbox</span>
+          <span class="chip">VEXpro Colson Wheels</span>
+          <span class="chip">goBILDA Pillow Blocks</span>
+          <span class="chip">SendCutSend Adapter Plates</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills">
+    <div class="divider"><span class="tag">04 — Skills</span><span class="rule"></span></div>
+    <h2 class="section-title reveal">Toolbox</h2>
+    <p class="section-sub reveal">The stacks and systems I work in most, spanning software, controls, and hardware.</p>
+
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <h4>Robotics Software</h4>
+        <p>ROS2, Python, systems integration for autonomous and semi-autonomous platforms.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Industrial Automation</h4>
+        <p>PLC programming in structured text, building automation commissioning.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Test &amp; Controls</h4>
+        <p>Hardware test protocols, data-driven design iteration, mechanism validation.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Mechanical Design</h4>
+        <p>Drivetrain and mechanism design, COTS component integration, custom sheet-metal parts.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Video &amp; Streaming</h4>
+        <p>RTSP pipelines and calibration tooling for camera-based systems.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Web / Interfaces</h4>
+        <p>HTML-based tooling and interfaces built to support robotics workflows.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="contact-panel reveal">
+      <h2>Let's build something.</h2>
+      <p>Open to automation and mechatronics engineering roles — reach out if there's a fit.</p>
+      <div class="contact-links">
+        <a href="mailto:your.email@example.com">Email <span class="edit-note">(update)</span></a>
+        <a href="#">LinkedIn <span class="edit-note">(add link)</span></a>
+        <a href="#">GitHub <span class="edit-note">(add link)</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Built with a four-bar linkage and a lot of scroll events.</footer>
+
+<script>
+  // ---------- Scroll reveal ----------
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => io.observe(el));
+
+  // ---------- Four-bar linkage kinematics (signature hero element) ----------
+  const svg = document.getElementById('linkage-svg');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Fixed pivots
+  const O2 = { x: 90,  y: 220 };
+  const O4 = { x: 230, y: 220 };
+
+  // Link lengths (Grashof crank-rocker: shortest link adjacent to ground)
+  const rCrank   = 60;
+  const rCoupler = 150;
+  const rRocker  = 130;
+
+  function circleIntersect(c1, r1, c2, r2) {
+    const dx = c2.x - c1.x, dy = c2.y - c1.y;
+    const d = Math.sqrt(dx*dx + dy*dy);
+    if (d > r1 + r2 || d < Math.abs(r1 - r2) || d === 0) return null;
+    const a = (r1*r1 - r2*r2 + d*d) / (2*d);
+    const h = Math.sqrt(Math.max(r1*r1 - a*a, 0));
+    const xm = c1.x + a * dx / d;
+    const ym = c1.y + a * dy / d;
+    // pick the upper intersection (smaller y) for a consistent branch
+    const x3 = xm + h * dy / d;
+    const y3 = ym - h * dx / d;
+    const x4 = xm - h * dy / d;
+    const y4 = ym + h * dx / d;
+    return (y3 < y4) ? { x: x3, y: y3 } : { x: x4, y: y4 };
+  }
+
+  const els = {
+    ground: document.getElementById('l-ground'),
+    crank: document.getElementById('l-crank'),
+    coupler: document.getElementById('l-coupler'),
+    rocker: document.getElementById('l-rocker'),
+    o2: document.getElementById('p-o2'),
+    o4: document.getElementById('p-o4'),
+    b: document.getElementById('p-b'),
+    c: document.getElementById('p-c'),
+    tracer: document.getElementById('tracer'),
+  };
+
+  els.ground.setAttribute('x1', O2.x); els.ground.setAttribute('y1', O2.y);
+  els.ground.setAttribute('x2', O4.x); els.ground.setAttribute('y2', O4.y);
+  els.o2.setAttribute('cx', O2.x); els.o2.setAttribute('cy', O2.y);
+  els.o4.setAttribute('cx', O4.x); els.o4.setAttribute('cy', O4.y);
+
+  let theta2 = 0;
+  let tracePoints = [];
+
+  function step() {
+    const B = {
+      x: O2.x + rCrank * Math.cos(theta2),
+      y: O2.y + rCrank * Math.sin(theta2),
+    };
+    const C = circleIntersect(B, rCoupler, O4, rRocker) || { x: B.x, y: B.y };
+
+    els.crank.setAttribute('x1', O2.x); els.crank.setAttribute('y1', O2.y);
+    els.crank.setAttribute('x2', B.x);  els.crank.setAttribute('y2', B.y);
+
+    els.coupler.setAttribute('x1', B.x); els.coupler.setAttribute('y1', B.y);
+    els.coupler.setAttribute('x2', C.x); els.coupler.setAttribute('y2', C.y);
+
+    els.rocker.setAttribute('x1', O4.x); els.rocker.setAttribute('y1', O4.y);
+    els.rocker.setAttribute('x2', C.x);  els.rocker.setAttribute('y2', C.y);
+
+    els.b.setAttribute('cx', B.x); els.b.setAttribute('cy', B.y);
+    els.c.setAttribute('cx', C.x); els.c.setAttribute('cy', C.y);
+
+    // coupler midpoint tracer path, for a bit of drawn history
+    const mid = { x: (B.x + C.x) / 2, y: (B.y + C.y) / 2 };
+    tracePoints.push(mid);
+    if (tracePoints.length > 240) tracePoints.shift();
+    if (tracePoints.length > 1) {
+      const d = tracePoints.map((p, i) => (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
+      els.tracer.setAttribute('d', d);
+    }
+
+    theta2 += 0.014;
+    requestAnimationFrame(step);
+  }
+
+  if (!reduceMotion) {
+    requestAnimationFrame(step);
+  } else {
+    theta2 = Math.PI / 4;
+    const B = { x: O2.x + rCrank * Math.cos(theta2), y: O2.y + rCrank * Math.sin(theta2) };
+    const C = circleIntersect(B, rCoupler, O4, rRocker) || B;
+    els.crank.setAttribute('x1', O2.x); els.crank.setAttribute('y1', O2.y);
+    els.crank.setAttribute('x2', B.x);  els.crank.setAttribute('y2', B.y);
+    els.coupler.setAttribute('x1', B.x); els.coupler.setAttribute('y1', B.y);
+    els.coupler.setAttribute('x2', C.x); els.coupler.setAttribute('y2', C.y);
+    els.rocker.setAttribute('x1', O4.x); els.rocker.setAttribute('y1', O4.y);
+    els.rocker.setAttribute('x2', C.x);  els.rocker.setAttribute('y2', C.y);
+    els.b.setAttribute('cx', B.x); els.b.setAttribute('cy', B.y);
+    els.c.setAttribute('cx', C.x); els.c.setAttribute('cy', C.y);
+  }
+
+  // ---------- Subtle parallax on hero grid ----------
+  if (!reduceMotion) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      document.querySelector('.grid-bg').style.transform = `translateY(${y * 0.08}px)`;
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>
