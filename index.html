@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joshua — Mechatronics & Automation Engineer</title>
+<title>Joshua, Mechatronics & Automation Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -367,11 +367,13 @@
     border:1px solid var(--line);
     border-radius:2px;
     padding:48px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    display:flex;
+    align-items:flex-start;
     gap:48px;
   }
-  @media (max-width:800px){ .build-panel{grid-template-columns:1fr; padding:28px;} }
+  .build-panel > .media-slot{ flex:1 1 0; min-width:0; align-self:flex-start; }
+  .build-panel > .build-copy{ flex:1 1 0; min-width:0; }
+  @media (max-width:800px){ .build-panel{flex-direction:column; padding:28px;} }
   .media-slot{
     aspect-ratio:16/10;
     border:1px dashed var(--line);
@@ -482,7 +484,7 @@
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
-      <a href="#build">Current Build</a>
+      <a href="#build">Project Portfolio</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </div>
@@ -496,13 +498,13 @@
       <div class="eyebrow">Mechatronics &amp; Automation Engineer</div>
       <h1>Building the <span>linkages</span><br>between code and machine.</h1>
       <p class="lede">
-        I design, test, and control robotic and automated systems — from PLC-driven
-        building automation to ROS2 mobile platforms — grounded in hands-on hardware
-        validation.
+        I test and validate humanoid robot subsystems at Boston Dynamics, building
+        the automated test stands and closed-loop scripts that turn raw hardware
+        data into design decisions.
       </p>
       <div class="btn-row">
         <a href="#contact" class="btn btn-primary">Get in touch</a>
-        <a href="#" class="btn btn-outline">Download résumé <span class="edit-note">(add link)</span></a>
+        <a href="JH. Yoo 2026 Resume.pdf" download class="btn btn-outline">Download résumé</a>
       </div>
     </div>
     <div class="linkage-box">
@@ -532,28 +534,31 @@
 
   <!-- ================= ABOUT ================= -->
   <section id="about">
-    <div class="divider"><span class="tag">01 — About</span><span class="rule"></span></div>
+    <div class="divider"><span class="tag">01. About</span><span class="rule"></span></div>
     <div class="about-grid reveal">
-      <div class="photo-slot">Add headshot here<br><span class="edit-note">(replace .photo-slot background)</span></div>
+      <div class="photo-slot" style="padding:0; overflow:hidden;">
+        <img src="headshot.jpg" alt="Joshua Yoo headshot" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'; this.parentElement.innerText='Add headshot.jpg to repo root';">
+      </div>
       <div class="about-body">
         <p>
           I'm an early-career mechatronics and mechanical engineer with a
           <strong>Master's degree from Northeastern University</strong>. My path into
           robotics has run through test engineering on humanoid hardware, full-stack
-          robotics software, and industrial automation — I like working close to the
-          hardware, where a control decision shows up as a measurable change in a
-          system's behavior.
+          robotics software, and industrial automation. I like being hands-on, seeing
+          a control decision show up as a measurable change in a system's behavior.
         </p>
         <p>
           Across every role, I've focused on the same thing: closing the loop between
-          data and design. Whether that's friction data from a test rig, a calibration
-          routine running over RTSP, or a PLC state machine on a commissioning floor,
-          I want the evidence to drive the next design decision.
+          data and design. Whether that's building test stands for humanoid subsystems,
+          engineering the full software stack behind an optimized camera calibration
+          process, or wiring together my own robot on weekends, I want the evidence to
+          drive the next design decision.
         </p>
         <div class="stat-row">
           <div class="stat"><span class="num">3</span><span class="label">Engineering roles</span></div>
-          <div class="stat"><span class="num">5x</span><span class="label">Calibration speedup</span></div>
-          <div class="stat"><span class="num">33%</span><span class="label">Friction torque cut</span></div>
+          <div class="stat"><span class="num">45%</span><span class="label">Detection accuracy gain</span></div>
+          <div class="stat"><span class="num">$900K</span><span class="label">Annual savings driven</span></div>
+          <div class="stat"><span class="num" style="font-size:20px;">Gordon Institute</span><span class="label">Leadership certification</span></div>
         </div>
       </div>
     </div>
@@ -561,72 +566,161 @@
 
   <!-- ================= EXPERIENCE ================= -->
   <section id="experience">
-    <div class="divider"><span class="tag">02 — Experience</span><span class="rule"></span></div>
+    <div class="divider"><span class="tag">02. Experience</span><span class="rule"></span></div>
     <h2 class="section-title reveal">Where the work happened</h2>
     <p class="section-sub reveal">A quick history of the systems I've tested, built, and commissioned.</p>
 
     <div class="timeline">
       <div class="t-item reveal">
-        <div class="t-date">Co-op</div>
+        <div class="t-date">January 2026 - Present</div>
         <div class="t-role">Systems Test Engineer</div>
-        <div class="t-org">Boston Dynamics — Humanoid Robotics</div>
+        <div class="t-org">Boston Dynamics, Humanoid Robotics</div>
         <div class="t-desc">
           <ul>
-            <li>Ran structured test protocols on humanoid hardware subsystems and analyzed the resulting data.</li>
-            <li>Test data analysis contributed to a 33% reduction in friction torque on a key mechanism.</li>
+            <li>Develop and run full test cycles for humanoid robot subsystem test stands to validate system performance and reliability.</li>
+            <li>Capture and analyze high-fidelity subsystem data to drive insights, directly informing design decisions and component-level improvements.</li>
+            <li>Implement Python-based automated test scripts with closed-loop control and integrated safety mechanisms.</li>
           </ul>
         </div>
       </div>
 
       <div class="t-item reveal">
-        <div class="t-date">Co-op</div>
+        <div class="t-date">January 2025 - July 2025</div>
         <div class="t-role">Software Engineer</div>
-        <div class="t-org">Sea Machines Robotics — Autonomous Vessels</div>
+        <div class="t-org">Sea Machines Robotics, Autonomous Vessels</div>
         <div class="t-desc">
           <ul>
-            <li>Worked full-stack on ROS2-based tooling, including Python, RTSP video streams, and HTML interfaces.</li>
-            <li>Rebuilt a camera calibration workflow, cutting calibration time by roughly 5x.</li>
+            <li>Designed and implemented control systems for Unmanned Surface Vessels (USVs) across hardware, software, and network layers.</li>
+            <li>Configured and calibrated computer vision systems for low-latency, high-quality imaging in customer-ready deployments.</li>
+            <li>Designed a standardized wide-angle camera calibration process that improved object detection accuracy by 45%.</li>
           </ul>
         </div>
       </div>
 
       <div class="t-item reveal">
-        <div class="t-date">Full-time</div>
-        <div class="t-role">Building Automation Engineer</div>
+        <div class="t-date">July 2022 - September 2024</div>
+        <div class="t-role">Systems Specialist</div>
         <div class="t-org">Siemens</div>
         <div class="t-desc">
           <ul>
-            <li>Commissioned building automation systems using PLCs programmed in structured text.</li>
-            <li>Worked within Siemens' proprietary automation platform to bring control sequences online on-site.</li>
+            <li>Installed, troubleshot, and commissioned building automation for HVAC systems across pharmaceutical, hospital, and high-rise sites.</li>
+            <li>Integrated TCP/IP controllers to bring control sequence to mission-critical sites while maintaining security standards.</li>
+            <li>Leveraged data-driven insights to implement quality improvements that reduced energy costs by $900K annually.</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= CURRENT BUILD ================= -->
+  <!-- ================= PROJECT PORTFOLIO ================= -->
   <section id="build">
-    <div class="divider"><span class="tag">03 — Current Build</span><span class="rule"></span></div>
-    <h2 class="section-title reveal">Board dolly → differential-drive robot</h2>
-    <p class="section-sub reveal">A personal hardware project turning a repurposed board dolly into a ROS2-navigated mobile platform.</p>
+    <div class="divider"><span class="tag">03. Project Portfolio</span><span class="rule"></span></div>
+    <h2 class="section-title reveal">Project Portfolio</h2>
+    <p class="section-sub reveal">A running list of the hardware and software projects I built throughout my career.</p>
 
     <div class="build-panel reveal">
-      <div class="media-slot">Add project GIF/photo here<br><span class="edit-note">(replace .media-slot)</span></div>
+      <div class="MobyRoby.gif">Add project GIF/photo here<br><span class="edit-note">(replace .media-slot)</span></div>
       <div class="build-copy">
-        <h3>Motorized Differential Drive Platform</h3>
+        <h3>Threshold Robustness Improvement of Ground Fusion</h3>
         <p>
-          Converting a board dolly chassis into a differential-drive robot with
-          BLDC motors and a ROS2 navigation stack, using off-the-shelf drivetrain
-          hardware and custom laser-cut adapter plates to mate everything together.
+          This project analyzed Ground-Fusion, a low-cost mutli-sensor SLAM system
+          for ground robots, and found that three of its safety mechanisms 
+          actually caused catastrophic localization failures due to fixed, brittle
+          thresholds. The project fixed these issues by replacing a rigid 
+          feature-rejection threshold with a population-adaptive one, swapping a
+          rigid ground-plane constraint for a Cauchy robust loss that gracefully 
+          handles non-flat terrain, and replacing a binary wheel-slip gate with 
+          continuous covariance inflation that self-recovers from anomalies. 
+          Implemented in the Ceres Solver optimization backend and validated on 
+          real SLAM benchmarks, these fixes achieved up to 3.9x better 
+          localization accuracy in dynamic scenes and recovery from 23x drift 
+          cascades, with no performance loss on normal conditions.
         </p>
         <div class="chip-row">
-          <span class="chip">ROS2 Navigation</span>
-          <span class="chip">BLDC Motors</span>
-          <span class="chip">REV HD Hex</span>
-          <span class="chip">UltraPlanetary Gearbox</span>
-          <span class="chip">VEXpro Colson Wheels</span>
-          <span class="chip">goBILDA Pillow Blocks</span>
-          <span class="chip">SendCutSend Adapter Plates</span>
+          <span class="chip">SLAM</span>
+          <span class="chip">Sensor Fusion</span>
+          <span class="chip">Estimation Theory</span>
+          <span class="chip">C++</span>
+          <span class="chip">ROS2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="build-panel reveal" style="margin-top:32px;">
+      <div class="media-slot">Add project GIF/photo here<br><span class="edit-note">(replace .media-slot)</span></div>
+      <div class="build-copy">
+        <h3>Autonomous Warehouse Robotics Platform<span class="edit-note"> (edit title)</span></h3>
+        <p>
+          Add project description here. This slot is sized for the AGV and
+          robotic arm payload handoff project, but any project works.
+          <span class="edit-note">(edit this paragraph)</span>
+        </p>
+        <div class="chip-row">
+          <span class="chip">Mosquitto MQTT</span>
+          <span class="chip">April Tag Localization</span>
+          <span class="chip">CAN</span>
+          <span class="chip edit-note">(edit tags)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="build-panel reveal" style="margin-top:32px;">
+      <div class="media-slot">Add project GIF/photo here<br><span class="edit-note">(replace .media-slot)</span></div>
+      <div class="build-copy">
+        <h3>Optimized and Standardized Camera Calibration for USV Navigation<span class="edit-note"> (edit title)</span></h3>
+        <p>
+          This project engineered a robust, scalable camera calibration 
+          process to support autonomous navigation in uncrewed surface 
+          vessels by addressing a critical bottleneck in vision-based 
+          perception. Traditional calibration methods produced high 
+          reprojection errors (±20 pixels), inconsistent results, and 
+          slow throughput, limiting reliability at sea. By applying 
+          optical principles to define calibration distance and focus, 
+          introducing a Laplacian variance–based focus metric, and 
+          developing tools such as a live tag-detection feedback system 
+          and a web-based interface, the project reduced reprojection 
+          error to sub-pixel accuracy (less than1 pixel RMS), 
+          streamlined workflows, and standardized results across 
+          multiple camera models. These innovations enable engineers 
+          to reliably calibrate wide field-of-view fisheye cameras, 
+          improve image clarity for machine learning models, and 
+          achieve precise geolocation of maritime objects at ranges up 
+          to 5 km.
+          <span class="edit-note">(edit this paragraph)</span>
+        </p>
+        <div class="chip-row">
+          <span class="chip edit-note">(edit tags)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="build-panel reveal" style="margin-top:32px;">
+      <div class="media-slot">Add project GIF/photo here<br><span class="edit-note">(replace .media-slot)</span></div>
+      <div class="build-copy">
+        <h3>Project Title<span class="edit-note"> (edit title)</span></h3>
+        <p>
+          This project focuses on the design, modeling, and simulation of 
+          an intelligent vehicle system that automatically maintains safe
+          distances and stable speeds under varying traffic conditions.
+          Using MATLAB and Simulink, the team developed an Adaptive Cruise
+          Control (ACC) model that integrates Proportional-Integral-
+          Derivative (PID) control strategies to dynamically adjust a 
+          vehicle’s throttle and braking. The project begins with modeling
+          the vehicle’s mechanical dynamics and deriving a transfer 
+          function to inform controller design. A control approach was 
+          implemented to minimize overshoot, improve stability, and ensure
+          smooth acceleration and braking responses. Through simulated
+          scenarios involving a “lead” and “ego” car, the system 
+          demonstrated robust adaptability, maintaining safe following
+          distances even during sudden deceleration events. The results
+          confirmed the ACC system’s capability to enhance driving
+          safety, comfort, and efficiency. Suggested future improvements
+          include integrating LiDAR and radar sensors with machine 
+          learning for model predictive decision-making and advance the
+          system toward higher levels of vehicle autonomy.
+        </p>
+        <div class="chip-row">
+          <span class="chip edit-note">(edit tags)</span>
         </div>
       </div>
     </div>
@@ -634,18 +728,18 @@
 
   <!-- ================= SKILLS ================= -->
   <section id="skills">
-    <div class="divider"><span class="tag">04 — Skills</span><span class="rule"></span></div>
+    <div class="divider"><span class="tag">04. Skills</span><span class="rule"></span></div>
     <h2 class="section-title reveal">Toolbox</h2>
     <p class="section-sub reveal">The stacks and systems I work in most, spanning software, controls, and hardware.</p>
 
     <div class="skills-grid reveal">
       <div class="skill-card">
         <h4>Robotics Software</h4>
-        <p>ROS2, Python, systems integration for autonomous and semi-autonomous platforms.</p>
+        <p>ROS2, Python, data analysis, closed-loop control for autonomous and semi-autonomous platforms.</p>
       </div>
       <div class="skill-card">
         <h4>Industrial Automation</h4>
-        <p>PLC programming in structured text, building automation commissioning.</p>
+        <p>Quasi-PLC programming in structured text, Mitsubishi Motion controllers</p>
       </div>
       <div class="skill-card">
         <h4>Test &amp; Controls</h4>
@@ -653,15 +747,15 @@
       </div>
       <div class="skill-card">
         <h4>Mechanical Design</h4>
-        <p>Drivetrain and mechanism design, COTS component integration, custom sheet-metal parts.</p>
+        <p> Design high precision mechanical parts, COTS component integration, rapid prototyping.</p>
       </div>
       <div class="skill-card">
         <h4>Video &amp; Streaming</h4>
-        <p>RTSP pipelines and calibration tooling for camera-based systems.</p>
+        <p>RTSP pipelines, optics, and OpenCV.</p>
       </div>
       <div class="skill-card">
-        <h4>Web / Interfaces</h4>
-        <p>HTML-based tooling and interfaces built to support robotics workflows.</p>
+        <h4>Networking</h4>
+        <p>Ethernet/IP, CAN, HTML-based tooling and interfaces built to support robotics workflows.</p>
       </div>
     </div>
   </section>
@@ -670,10 +764,10 @@
   <section id="contact">
     <div class="contact-panel reveal">
       <h2>Let's build something.</h2>
-      <p>Open to automation and mechatronics engineering roles — reach out if there's a fit.</p>
+      <p>Open to automation and mechatronics engineering roles. Reach out if there's a fit.</p>
       <div class="contact-links">
-        <a href="mailto:your.email@example.com">Email <span class="edit-note">(update)</span></a>
-        <a href="#">LinkedIn <span class="edit-note">(add link)</span></a>
+        <a href="mailto:hwonj24@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/jh-yoo/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="#">GitHub <span class="edit-note">(add link)</span></a>
       </div>
     </div>
